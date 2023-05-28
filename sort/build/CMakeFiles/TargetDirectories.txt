@@ -1,0 +1,3 @@
+/Users/shishun/AllProject/sort/build/CMakeFiles/sort.out.dir
+/Users/shishun/AllProject/sort/build/CMakeFiles/edit_cache.dir
+/Users/shishun/AllProject/sort/build/CMakeFiles/rebuild_cache.dir

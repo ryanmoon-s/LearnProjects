@@ -1,0 +1,12 @@
+@startuml slanted
+!pragma teoz true
+
+' 角度
+A ->(20) B: text top \n
+' 开启teoz 后，前面加个&，可以并排
+& B ->(20) A: text buttom
+
+A ->(5) B: text 10
+A (5)<- B: text 10
+
+@enduml

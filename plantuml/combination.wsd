@@ -1,0 +1,82 @@
+@startuml combination
+
+title Combination Message
+mainframe This is a **mainframe**
+
+/'
+alt/else
+opt 次级标题
+loop 次级标题
+par 次级标题
+break 次级标题
+critical 次级标题
+ref 次级标题
+group 主标题 [次级标题]
+
+end 用来结束分组
+'/
+
+Alice -> Bob: 认证请求
+
+' 第一个颜色挨着alt
+alt#Gold #LightBlue 成功情况
+    Bob -> Alice: 认证接受
+else #Pink 某种失败情况
+    Bob -> Alice: 认证失败
+    group 我自己的标签
+        Alice -> Log : 开始记录攻击日志
+        loop 1000次
+            Alice -> Bob: DNS 攻击
+        end
+        Alice -> Log : 结束记录攻击日志
+        note right  /'left right'/
+            攻击了10000次
+            未成功击破防御
+            下次再来攻击
+        end note
+    end
+else #HotPink 另一种失败
+    Bob -> Alice: 请重复
+end
+
+alt 一直失败的情况
+Alice -> Jane : 认证请求
+group#Gold #LightBlue 主标题 [次级标题]
+    Alice x<- Jane : 认证通过
+end
+end
+
+
+' 相对位置注释 可以加颜色
+note left of Alice #PaleGreen
+    note left of Alice
+end note
+' / ：和前一个同一级对齐
+/ note right of Bob #OrangeRed
+    note right of Bob
+end note
+
+' 好像只能over两个
+note over Bob, Log #GreenYellow
+    note over Bob, Log
+end note
+
+' 改变note形状
+rnote left of Alice #PaleGreen
+    正方形
+end note
+/ hnote right of Alice #PaleGreen
+    六边形
+end note
+
+' ref
+ref over Alice, Bob : init
+
+ref over Alice, Bob
+    多行ref
+    hhha
+    wuwu
+end ref
+
+
+@enduml

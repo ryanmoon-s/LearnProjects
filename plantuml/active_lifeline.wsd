@@ -1,0 +1,61 @@
+@startuml lifeline
+
+skinparam ResponseMessageBelowArrow true
+
+actor ActorA as A
+entity EntityB as B
+entity EntityC as C
+entity EntityD as D
+
+A -> B : to B
+' 增加空间
+|||
+B -> C : to C
+' 增加空间 weight
+||10||
+B <- C : back B
+
+''''''''''''''
+
+' 生命线 竖长条
+A -> B : to B
+activate A #Green
+activate B #Red
+
+B -> C : to C
+activate C #YellowGreen
+
+C -> C : **to self**
+activate C #Yellow   /' 嵌套C begin '/
+
+C -> D : __to D__
+activate D #DarkGray
+
+' 中途创建一个对象，在中间生成
+' 强调本次消息实际上是在创建新的对象
+create database data
+D -> data : save
+activate data
+D <- data : return
+deactivate data
+
+C <- D : back C
+deactivate D
+deactivate C        /' 嵌套C end '/
+
+B <- C : back B
+deactivate C
+
+A <- B : back A
+deactivate B
+
+A -> C : to C
+activate C
+
+C -> C : to self
+
+A <-- C : back A
+deactivate C
+deactivate A
+
+@enduml

@@ -1,0 +1,60 @@
+@startuml new
+
+/'
+++ 激活目标（可选择在后面加上#color）
+-- 撤销激活源
+
+** 创建目标实例
+!! 摧毁目标实例
+'/
+
+A -> B ++ #Green : to B
+
+B -> C ++ #Red : to C
+
+C -> D ++ #Yellow : to D
+
+C <- D -- : back C
+
+B <- C -- : back B
+
+A <- B -- : back A
+
+'''
+
+A -> C ++ #YellowGreen : to C
+' 撤销并激活
+C -> D --++ #SeaGreen : to D
+
+A <- D -- #PaleGreen : back A
+
+'''
+
+A -> E ** : new to E
+
+' 销毁终点
+A <- E !! : destory A
+
+' 销毁起点
+A <- E : destory A
+destroy E
+
+'''
+
+' 如果只想关注部分图示，可以使用进入和发出箭头
+
+' 最左侧进
+[-> A : DoWork left in
+' 最左侧出
+[<- A: DoWork left done
+
+' 最右侧进
+]--// A : DoWork right in
+' 最右侧出
+]//-- A : Dowork right done
+
+' 进入、发出的 缩短
+?-> A : slow to A
+A ->? : slow to right
+
+@enduml

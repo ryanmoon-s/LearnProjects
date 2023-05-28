@@ -1,0 +1,2 @@
+#define v1 @VAR1@
+#define v2 @VAR2@

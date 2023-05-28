@@ -1,0 +1,88 @@
+@startuml participant
+' 单行注释
+/'
+  多行注释
+'/
+
+' 标题
+title __Simple__ **Comunication** example
+' 页眉
+header this is a header
+' 页脚
+footer page 1 of 2
+
+' order 顺序
+' 发消息默认双方为 participant
+participant Participant as Foo0 order 0 #Green 
+actor       Actor       as Foo1 order 1 #Red
+boundary    Boundary    as Foo2 order 2 #Yellow
+control     Control     as Foo3 order 3 #Black
+entity      Entity      as Foo4 order 4 #White
+database    Database    as Foo5 order 5 #Pink
+collections Collections as Foo6 order 6 #Gray
+queue       Queue       as Foo7 order 7 #HotPink
+' 非字母加引号
+queue       Queue       as "Bob()" order 7 #HotPink
+
+' 编号：自增id -- begin step format[html]
+autonumber 1 2 "<i><b><font color=red>[000]"
+
+' 对齐 left center right
+skinparam SequenceMessageAlignment left
+' 回包的文字在下面
+skinparam ResponseMessageBelowArrow true
+' 一行最多多少字（不支持中文换行）
+skinparam MaxMessageSize 200
+
+' 实线 换行
+Foo0 -> Foo1 : To actor\n我换了一行\n我又换了一行
+Foo0 <- Foo1 : To actor\nthis is a very long message on several words
+Foo0 <-> Foo1 : To actor
+' 给自己发消息 \n可以换行
+Foo0 -> Foo0 : To self\n haha
+
+' 暂停编号
+autonumber stop
+
+' 分隔符
+== 我是一个长长的分隔符 ==
+
+' 多级编号 A.B.C 不可以format??
+autonumber 1.1.1
+
+' 虚线 带颜色
+Foo0 -[#Red]-> Foo2 : To boundary
+Foo0 --[#Red]> Foo2 : To boundary
+
+' B + 1；C重新从1开始
+autonumber inc B
+
+' 半个箭头
+' /- -/上；\- -\下
+Foo0 -\ Foo3 : To control
+Foo0 -/ Foo3 : To control
+
+' 重复箭头：空心箭头
+Foo0 ->> Foo4 : To entity
+' 空心上半箭头 形状和符号有点象形
+Foo0 [#Red]-\\ Foo4 : To entity
+' 空心下半箭头
+Foo0 \\-[#Red] Foo4 : To entity
+
+' A + 1；B C 重新从1开始
+autonumber inc A
+
+' 头有圆 && 消息丢失
+' 引用 autonumber
+Foo0 o->x Foo5 : To database : %autonumber%
+Foo0 o->o Foo5 : To database : %autonumber%
+
+' 分出新页 title
+' 单个双引号会有引号本身，""能去掉引号本身
+' newpage ""thie next page's title""
+
+Foo0 -> Foo6 : To collections
+
+Foo0 -> Foo7: To queue
+
+@enduml

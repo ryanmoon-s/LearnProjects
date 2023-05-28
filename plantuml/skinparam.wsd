@@ -1,0 +1,66 @@
+@startuml skinparam
+
+' 背景图
+skinparam backgroundColor #EEEBDC
+' 手写体
+skinparam handwritten true
+
+' 标准uml
+' 箭头实心、隐藏脚注 ... ...
+' skinparam style strictuml
+
+' 生命线
+skinparam lifelineStrategy solid
+
+' sequence 序列图
+skinparam sequence {
+    ArrowColor DeepSkyBlue
+
+    ActorBorderColor DeepSkyBlue
+
+    LifeLineBorderColor blue
+    LifeLineBackgroundColor #A9DCDF
+
+    ParticipantBorderColor DeepSkyBlue
+    ParticipantBackgroundColor DodgerBlue
+    ParticipantFontName Impact
+    ParticipantFontSize 17
+    ParticipantFontColor #A9DCDF
+    ParticipantPadding 10
+
+    ActorBackgroundColor aqua
+    ActorFontColor DeepSkyBlue
+    ActorFontSize 17
+    ActorFontName Aapex
+}
+
+' box 只能设在外面
+skinparam SequenceBoxBackgroundColor #A9DCDF
+skinparam SequenceBoxBorderColor #Red
+skinparam BoxPadding 10
+
+actor User
+participant "First Class" as A
+box "This is B box"
+    participant "Second Class" as B
+end box
+box "This is C box"
+    participant "Last Class" as C
+end box
+
+' 隐藏孤立参与者
+hide unlinked
+participant Carol
+
+User -> A ++ : DoWork
+
+A -> B ++ : Create Request
+
+B -> C ++ : DoWork
+B <-- C -- : WorkDone
+
+B --> A -- : Request Created
+
+User <-- A -- : Done
+
+@enduml

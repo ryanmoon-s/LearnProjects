@@ -1,0 +1,20 @@
+@startuml teoz
+
+' 锚点 teoz
+!pragma teoz true
+
+{start} Alice -> Bob : start doing things during duration
+
+box "this is a box\n box" #LightSteelBlue
+Bob -> Max : something
+Max -> Bob : something else
+end box
+
+{end} Bob -> Alice : finish
+
+{start} <-> {end} : some time
+
+' 只有上面了，隐藏下面脚注
+hide footbox
+
+@enduml
