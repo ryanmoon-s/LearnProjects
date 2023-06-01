@@ -1,3 +1,6 @@
-/Users/shishun/AllProject/cmake/version/build/CMakeFiles/version.out.dir
-/Users/shishun/AllProject/cmake/version/build/CMakeFiles/edit_cache.dir
-/Users/shishun/AllProject/cmake/version/build/CMakeFiles/rebuild_cache.dir
+/Users/shishun/LearnProjects/cmake/version/build/CMakeFiles/version.out.dir
+/Users/shishun/LearnProjects/cmake/version/build/CMakeFiles/edit_cache.dir
+/Users/shishun/LearnProjects/cmake/version/build/CMakeFiles/rebuild_cache.dir
+/Users/shishun/LearnProjects/cmake/version/build/library/CMakeFiles/strlib.dir
+/Users/shishun/LearnProjects/cmake/version/build/library/CMakeFiles/edit_cache.dir
+/Users/shishun/LearnProjects/cmake/version/build/library/CMakeFiles/rebuild_cache.dir

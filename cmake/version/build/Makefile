@@ -57,10 +57,10 @@ RM = /opt/homebrew/Cellar/cmake/3.26.3/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/shishun/AllProject/cmake/version
+CMAKE_SOURCE_DIR = /Users/shishun/LearnProjects/cmake/version
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/shishun/AllProject/cmake/version/build
+CMAKE_BINARY_DIR = /Users/shishun/LearnProjects/cmake/version/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/shishun/AllProject/cmake/version/build/CMakeFiles /Users/shishun/AllProject/cmake/version/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/shishun/LearnProjects/cmake/version/build/CMakeFiles /Users/shishun/LearnProjects/cmake/version/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/shishun/AllProject/cmake/version/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/shishun/LearnProjects/cmake/version/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -129,6 +129,19 @@ version.out/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/version.out.dir/build.make CMakeFiles/version.out.dir/build
 .PHONY : version.out/fast
 
+#=============================================================================
+# Target rules for targets named strlib
+
+# Build rule for target.
+strlib: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 strlib
+.PHONY : strlib
+
+# fast build rule for target.
+strlib/fast:
+	$(MAKE) $(MAKESILENT) -f library/CMakeFiles/strlib.dir/build.make library/CMakeFiles/strlib.dir/build
+.PHONY : strlib/fast
+
 version.o: version.cpp.o
 .PHONY : version.o
 
@@ -161,6 +174,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... strlib"
 	@echo "... version.out"
 	@echo "... version.o"
 	@echo "... version.i"

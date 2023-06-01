@@ -7,11 +7,12 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "/Users/shishun/AllProject/cmake/version/CMakeLists.txt"
+  "/Users/shishun/LearnProjects/cmake/version/CMakeLists.txt"
   "CMakeFiles/3.26.3/CMakeCCompiler.cmake"
   "CMakeFiles/3.26.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.26.3/CMakeSystem.cmake"
-  "/Users/shishun/AllProject/cmake/version/versionProjConfig.h.in"
+  "/Users/shishun/LearnProjects/cmake/version/library/CMakeLists.txt"
+  "/Users/shishun/LearnProjects/cmake/version/versionProjConfig.h.in"
   "/opt/homebrew/Cellar/cmake/3.26.3/share/cmake/Modules/CMakeCInformation.cmake"
   "/opt/homebrew/Cellar/cmake/3.26.3/share/cmake/Modules/CMakeCXXInformation.cmake"
   "/opt/homebrew/Cellar/cmake/3.26.3/share/cmake/Modules/CMakeCommonLanguageInclude.cmake"
@@ -45,9 +46,11 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "versionProjConfig.h"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "library/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/version.out.dir/DependInfo.cmake"
+  "library/CMakeFiles/strlib.dir/DependInfo.cmake"
   )
