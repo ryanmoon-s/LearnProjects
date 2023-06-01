@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 # app工程名
 project(versionProj VERSION 1.2) 
 
-# 设置变量
+# 设置变量 var value
 set(VAR1 1)
 set(VAR2 2)
 # 文件、目录
@@ -24,11 +24,13 @@ add_subdirectory(${SRC_LIB_DIR})
 
 #----------------------------------
 
-# 为target - 设定头文件查找目录
-# INTERFACE：target对应的头文件使用
-# PRIVATE：target对应的源文件使用
-# PUBLIC：target对应的头文件、源文件都使用
-# PROJECT_BINARY_DIR：主目录
+#[[
+为target - 设定头文件查找目录
+INTERFACE：target对应的头文件使用
+PRIVATE：target对应的源文件使用
+PUBLIC：target对应的头文件、源文件都使用
+PROJECT_BINARY_DIR：主目录
+]]
 # target_include_directories(version.out PUBLIC "${PROJECT_BINARY_DIR}" "${PROJECT_SOURCE_DIR}/library")
 
 # 为整个项目 - 设定头文件查找目录
