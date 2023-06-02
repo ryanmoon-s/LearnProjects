@@ -28,14 +28,18 @@ file(GLOB MAIN_HEAD ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 #----------------------------------
 
 # 将input文件中的@var@或者${var}替换成cmake中的变量。
+# 目标文件位置：PROJECT_BINARY_DIR
 # input output
 configure_file(versionProjConfig.h.in versionProjConfig.h)
 
 #----------------------------------
 
+# 链接静态库
+link_libraries(strlib)
+
 # 构建工程的源文件
 add_executable(version.out ${MAIN_SRC})
-# 将子目录添加到构建
+# 将子目录CMakeLists添加到构建
 add_subdirectory(${SRC_LIB_DIR})
 
 #----------------------------------
@@ -52,7 +56,7 @@ PROJECT_BINARY_DIR：主目录
 # 为整个项目 - 设定头文件查找目录
 include_directories(
     "${CMAKE_CURRENT_SOURCE_DIR}"       # 当前CMakeLists所在目录
-    "${PROJECT_BINARY_DIR}"             # 执行 cmake 命令的目录 - build/
+    "${PROJECT_BINARY_DIR}"             # 执行 cmake 命令的目录 - ./build/
     "${PROJECT_SOURCE_DIR}/library"     # 使用 cmake 命令后紧跟的目录，一般是工程的根目录
 )
 #[[
@@ -64,5 +68,6 @@ CMAKE_BINARY_DIR        - 项目实际构建路径，假设在 build 目录进�
 
 #----------------------------------
 
-# 为target链接库
-target_link_libraries(version.out PUBLIC strlib)
+# 为target链接库：可以是动态库、静态库
+# target_link_libraries(version.out PUBLIC strlib)
+
