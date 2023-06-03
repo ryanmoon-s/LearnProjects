@@ -13,6 +13,10 @@ set(SRC_LIB_DIR library)
 # c++ 11
 set(CMAKE_CXX_STANDARD 11)
 
+# 宏定义
+add_definitions(-DMY_DEF_1)
+add_definitions(-DMY_DEF_2=2)
+
 #----------------------------------
 
 # 指定目录下的所有源文件，输出到变量
@@ -34,9 +38,6 @@ configure_file(versionProjConfig.h.in versionProjConfig.h)
 
 #----------------------------------
 
-# 链接静态库
-link_libraries(strlib)
-
 # 构建工程的源文件
 add_executable(version.out ${MAIN_SRC})
 # 将子目录CMakeLists添加到构建
@@ -44,12 +45,10 @@ add_subdirectory(${SRC_LIB_DIR})
 
 #----------------------------------
 
-#[[
-为target - 设定头文件查找目录
-INTERFACE：target对应的头文件使用
-PRIVATE：target对应的源文件使用
-PUBLIC：target对应的头文件、源文件都使用
-PROJECT_BINARY_DIR：主目录
+#[[ -- 为target - 设定头文件查找目录，默认PUBLIC
+INTERFACE：在 interface 后面引入的库不会被链接到前面的 target 中，只会导出符号
+PRIVATE：在 private 后面的库仅被 link 到前面的 target 中，并且终结掉，第三方不能感知你调了啥库
+PUBLIC：在 public 后面的库会被 Link 到前面的 target 中，并且里面的符号也会被导出，提供给第三方使用。
 ]]
 # target_include_directories(version.out PUBLIC "${PROJECT_BINARY_DIR}" "${PROJECT_SOURCE_DIR}/library")
 
@@ -68,6 +67,28 @@ CMAKE_BINARY_DIR        - 项目实际构建路径，假设在 build 目录进�
 
 #----------------------------------
 
-# 为target链接库：可以是动态库、静态库
-# target_link_libraries(version.out PUBLIC strlib)
+# 设定链接时的查找目录
+link_directories(${PROJECT_SOURCE_DIR}/lib)
 
+# 为target链接库 可以是动态库、静态库
+# 要在add_executable之后链接
+target_link_libraries(version.out PUBLIC strlib)
+
+#----------------------------------
+
+# 日志
+
+# this
+message(
+"this is
+default 
+msg")
+# -- xxx
+message(STATUS "[!this is STATUS msg]")
+# 黄色 突出
+message(WARNING "[!this is WARNING msg]")
+message(AUTHOR_WARNING "[!this is AUTHOR_WARNING msg]")
+# CMake 错误，继续执行，但是会跳过生成的步骤
+# message(SEND_ERROR "[!this is SEND_ERROR msg]")
+# CMake 错误，终止所有处理过程
+# message(FATAL_ERROR "[!this is FATAL_ERROR msg]")

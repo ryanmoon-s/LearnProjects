@@ -6,8 +6,11 @@ using namespace std;
 
 int main()
 {
+    #ifdef MY_DEF_1
     printf("%d\n", v1);
-    printf("%d\n", v2);
+    #endif
+
+    printf("%d, %d\n", v2, MY_DEF_2);
 
     string str("hello world");
     cout << ReverseString(str) << endl;
