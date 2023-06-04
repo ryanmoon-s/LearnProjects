@@ -1,0 +1,25 @@
+@startuml test
+' title 企业邮拉架构
+
+skinparam style strictuml
+
+loop has_more
+    entity 企业邮 as Eqymail
+    entity 企微Broker as Ebroker
+    entity wwcorparchlogicsvr as Egetarch
+    entity wwcorparchsvr as Echangenode
+
+    Eqymail -> Ebroker ++: 请求
+
+    Ebroker -> Egetarch ++: 拉架构
+    Ebroker <- Egetarch --: hashnode_list
+
+    ||20||
+
+    Ebroker -> Echangenode ++: 节点转换（hashnode_list）
+    Ebroker <- Echangenode --: party、partyuser
+
+    Eqymail <- Ebroker --: party、partyuser
+end
+
+@enduml

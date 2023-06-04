@@ -3,13 +3,15 @@ cmake_minimum_required(VERSION 3.10)
 # app工程名
 project(versionProj VERSION 1.2) 
 
-# 设置变量
+# 设置变量 子级CMakeLists可以使用
 # var value
 set(VAR1 1)
 set(VAR2 2)
-# 文件、目录
-set(SRC_FILE version.cpp)
-set(SRC_LIB_DIR library)
+# lib目录
+set(LIB_NAME strlib)
+set(LIB_PATH ${PROJECT_SOURCE_DIR}/library)
+set(TEST_LIB_NAME testlib)
+set(TEST_LIB_PATH ${PROJECT_SOURCE_DIR}/testlib)
 # c++ 11
 set(CMAKE_CXX_STANDARD 11)
 
@@ -38,13 +40,6 @@ configure_file(versionProjConfig.h.in versionProjConfig.h)
 
 #----------------------------------
 
-# 构建工程的源文件
-add_executable(version.out ${MAIN_SRC})
-# 将子目录CMakeLists添加到构建
-add_subdirectory(${SRC_LIB_DIR})
-
-#----------------------------------
-
 #[[ -- 为target - 设定头文件查找目录，默认PUBLIC
 INTERFACE：在 interface 后面引入的库不会被链接到前面的 target 中，只会导出符号
 PRIVATE：在 private 后面的库仅被 link 到前面的 target 中，并且终结掉，第三方不能感知你调了啥库
@@ -56,23 +51,38 @@ PUBLIC：在 public 后面的库会被 Link 到前面的 target 中，并且里�
 include_directories(
     "${CMAKE_CURRENT_SOURCE_DIR}"       # 当前CMakeLists所在目录
     "${PROJECT_BINARY_DIR}"             # 执行 cmake 命令的目录 - ./build/
-    "${PROJECT_SOURCE_DIR}/library"     # 使用 cmake 命令后紧跟的目录，一般是工程的根目录
+    ${LIB_PATH}
 )
 #[[
+PROJECT_SOURCE_DIR      - 使用 cmake 命令后紧跟的目录，一般是工程的根目录
 EXECUTABLE_OUTPUT_PATH  - 重新定义 目标二进制可执行文件的存放位置
 LIBRARY_OUTPUT_PATH     - 重新定义 目标链接库文件的存放位置
 PROJECT_NAME            - 返回通过 PROJECT 指令定义的项目名称
 CMAKE_BINARY_DIR        - 项目实际构建路径，假设在 build 目录进行的构建，那么得到的就是这个目录的路径
 ]]
 
-#----------------------------------
-
 # 设定链接时的查找目录
 link_directories(${PROJECT_SOURCE_DIR}/lib)
 
+#----------------------------------
+
+# version下面包含了library
+# 这是给所有构件都链接上library里面的库，就会让library自己也链接上了自己，报错
+# link_libraries(${LIB_NAME})
+
+# 将子目录CMakeLists添加到构建
+add_subdirectory(${LIB_PATH})
+add_subdirectory(${TEST_LIB_NAME})
+
+# 构建工程的源文件
+add_executable(version.out ${MAIN_SRC})
+
+#----------------------------------
+
 # 为target链接库 可以是动态库、静态库
-# 要在add_executable之后链接
-target_link_libraries(version.out PUBLIC strlib)
+# 动态库要在add_executable之后链接
+# 静态库随意
+target_link_libraries(version.out PUBLIC ${LIB_NAME})
 
 #----------------------------------
 
