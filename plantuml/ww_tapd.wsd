@@ -1,0 +1,26 @@
+@startuml test
+' title 企业邮拉架构
+
+skinparam style strictuml
+
+entity 提单系统 as tapd
+entity wwdatacontrolsvr as controlsvr
+entity wwprofilectrlsvr as profilesvr
+entity wwgydiskbridge as bridgesvr
+entity diskinnerapi as innerapi
+entity httpbroker as broker
+
+tapd -> controlsvr ++: 工具票、OA登录态授权
+controlsvr -> profilesvr ++: 透传
+profilesvr -> profilesvr : 1 校验：工具票与OA登录态身份一致\n2 校验：vid白名单\n3 用工具票换userticket
+profilesvr -> bridgesvr ++: 访问API（userticket）
+bridgesvr -> innerapi ++: 透传请求（userticket）
+innerapi -> broker ++: 校验身份和票据
+
+broker -> innerapi -- : 通过
+innerapi -> bridgesvr --: 
+bridgesvr -> profilesvr --: 
+profilesvr -> controlsvr --:
+controlsvr -> tapd --:
+
+@enduml
