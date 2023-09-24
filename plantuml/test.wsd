@@ -1,8 +1,6 @@
 @startuml test
 ' title 企业邮拉架构
 
-skinparam style strictuml
-
 loop has_more
     entity 企业邮 as Eqymail
     entity 企微Broker as Ebroker
@@ -17,9 +15,9 @@ loop has_more
     ||20||
 
     Ebroker -> Echangenode ++: 节点转换（hashnode_list）
-    Ebroker <- Echangenode --: party、partyuser
+    Ebroker <- Echangenode --: 部门节点、成员节点
 
-    Eqymail <- Ebroker --: party、partyuser
+    Eqymail <- Ebroker --: 部门节点、成员节点
 end
 
 @enduml
