@@ -17,6 +17,11 @@ print(dic1['hello'])
 # 访问不存在元素
 # print(dic1['hh']) # error报错
 
+# defaultvalue给一个默认值
+from collections import defaultdict
+dict2 = defaultdict(int) # 默认值为int类型0
+print(dict2['key'])
+
 # update insert
 dic1['hh'] = 20
 dic1['hh'] = 30 # this

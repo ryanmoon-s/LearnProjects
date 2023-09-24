@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 # 空列表
 list1 = []
 print(list1)
@@ -69,5 +67,11 @@ print(list1)
 list1.clear()
 print(list1)
 
-list1 = list2.copy()
-print(list1)
+list1 = list2.copy() # 复制一份，不影响以前的
+print(list1, list2)
+list1.clear()
+print(list1, list2)
+
+list1 = list2
+list1.clear() # 指向同一个对象
+print(list1, list2)
