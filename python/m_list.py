@@ -75,3 +75,13 @@ print(list1, list2)
 list1 = list2
 list1.clear() # 指向同一个对象
 print(list1, list2)
+
+# 用list()转换
+lst1 = list(range(1, 11))
+print(lst1)
+
+# 切片：[begin, end, step]
+# 默认:  0      len  1
+# 右边界是一个)，不被包含
+print(lst1[0:10])
+print(lst1[::-1]) # 开始到结束，逆序
