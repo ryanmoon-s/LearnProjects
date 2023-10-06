@@ -71,9 +71,8 @@ def Test_del_customer(customerid):
     # 再查一下
     Test_list_customer()
 
-
 # exec
-def Test():
+def TestCustomer():
     Test_list_customer()
     customerid = Test_add_customer()
     if not customerid > 0:
@@ -81,5 +80,26 @@ def Test():
         return
     Test_modify_customer(customerid, '小瓜瓜', '12345678', '地球村')
     Test_del_customer(customerid)
-    
-Test()
+ 
+ # signin, signout
+def Test_sign():
+    payload = {
+        'username':'shun',
+        'password':'S1119067989s'
+    }
+    # 用data=，即用urlencode格式
+    # 用json=，即用json格式
+    # 用params=，即拼接到url参数里面
+    response = requests.post(f'{host}/api/mgr/signin', data=payload)
+    ret = int(response.json().get('ret', 0))
+    if ret:
+        print('signin err', ret)
+        return ret
+
+    response = requests.post(f'{host}/api/mgr/signout', data=payload)
+    ret = int(response.json().get('ret', 0))
+    if ret:
+        print('signout err', ret)
+        return ret
+
+Test_sign()

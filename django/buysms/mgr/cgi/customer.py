@@ -3,6 +3,23 @@ from django.http import JsonResponse
 import json
 
 def Dispatcher(request):
+    # 校验登录状态，这个时候框架已经用前端带上来的sessionid取到了session data
+    if 'usertype' not in request.session:
+        print("no usertype in session")
+        return JsonResponse({
+            'ret': 302,
+            'msg': '未登录',
+            'redirect': '/mgr/sign.html'}, 
+            status=302)
+
+    if request.session['usertype'] != 'mgr':
+        print("usertype err", request.session['usertype'])
+        return JsonResponse({
+            'ret': 302,
+            'msg': '用户非mgr类型',
+            'redirect': '/mgr/sign.html'} ,
+            status=302)
+    
     # 将请求参数统一放入request 的 params 属性中，方便后续处理
     # GET请求 参数在url中，同过request 对象的 GET属性获取
     if request.method == 'GET':
@@ -43,7 +60,7 @@ def ListCustomer(request):
 
 def AddCustomer(request):
     BEGIN("AddCustomer", request)
-    info = request.params.get('data', None)
+    info = request.params.get('data') # 没有则返回None
     if not info:
         print("param err")
         return JsonResponse(PubErrResponse['param_err'])
@@ -58,8 +75,8 @@ def AddCustomer(request):
 
 def ModCustomer(request):
     BEGIN("ModCustomer", request)
-    customerid = request.params.get('id', None)
-    newdata = request.params.get('newdata', None)
+    customerid = request.params.get('id')
+    newdata = request.params.get('newdata')
     if not customerid or not newdata:
         print("param err", customerid, newdata)
         return JsonResponse(PubErrResponse['param_err'])
@@ -84,7 +101,7 @@ def ModCustomer(request):
 
 def DelCustomer(request):
     BEGIN("DelCustomer", request)
-    customerid = request.params.get('id', None)
+    customerid = request.params.get('id')
     if not customerid:
         print("param err", customerid,)
         return JsonResponse(PubErrResponse['param_err'])
