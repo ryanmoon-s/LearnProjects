@@ -16,11 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # sales/下面的交给sales.urls处理
     path('sales/', include('sales.urls')),
-    # api
-    path('api/mgr/', include('mgr.urls')),
-]
+    path('api/mgr/', include('mgr.urls'))
+]+ static("/", document_root="./z_dist")

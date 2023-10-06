@@ -24,7 +24,7 @@ def Test_add_customer():
             "address":"武汉市桥西医院北路"
         }
     }
-    response = requests.post(f'{host}/api/mgr/customers/', json=payload)
+    response = requests.post(f'{host}/api/mgr/customers', json=payload)
     ret = int(response.json().get('ret', 0))
     if ret:
         print('add_customer err', ret)
@@ -47,7 +47,7 @@ def Test_modify_customer(customerid, name, phonenumber, address):
             "address":address
         }
     }
-    response = requests.post(f'{host}/api/mgr/customers/', json=payload)
+    response = requests.post(f'{host}/api/mgr/customers', json=payload)
     ret = int(response.json().get('ret', 0))
     if ret:
         print('modify_customer err', ret)
@@ -62,7 +62,7 @@ def Test_del_customer(customerid):
         "action":"del_customer",
         "id":customerid
     }
-    response = requests.post(f'{host}/api/mgr/customers/', json=payload)
+    response = requests.post(f'{host}/api/mgr/customers', json=payload)
     ret = int(response.json().get('ret', 0))
     if ret:
         print('add_customer err', ret)
