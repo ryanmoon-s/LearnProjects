@@ -21,4 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # sales/下面的交给sales.urls处理
     path('sales/', include('sales.urls')),
+    # api
+    path('api/mgr/', include('mgr.urls')),
 ]

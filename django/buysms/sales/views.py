@@ -7,6 +7,14 @@ def GetCustomers(request):
     # 每条表记录都是是一个dict对象，
     # key 是字段名，value 是 字段值
     qs = Customer.objects.values()
+
+    # 检查请求url中是否有参数phonenumber
+    ph = request.GET.get('phonenumber', None)
+    qq = request.GET.get('qq', None)
+    if ph:
+        qs = qs.filter(phonenumber=ph)
+    if qq:
+        qs = qs.filter(qq=qq)
     
     result = ''
     for customer in qs:

@@ -7,4 +7,3 @@ build
 build/*
 .vscode
 __pycache__
-*.sqlite3
