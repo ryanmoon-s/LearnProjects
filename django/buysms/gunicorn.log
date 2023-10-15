@@ -1,0 +1,30 @@
+[2023-10-15 22:16:16 +0800] [30028] [INFO] Starting gunicorn 21.2.0
+[2023-10-15 22:16:16 +0800] [30028] [INFO] Listening at: http://127.0.0.1:8080 (30028)
+[2023-10-15 22:16:16 +0800] [30028] [INFO] Using worker: gevent
+[2023-10-15 22:16:16 +0800] [30031] [INFO] Booting worker with pid: 30031
+[2023-10-15 22:16:16 +0800] [30032] [INFO] Booting worker with pid: 30032
+[2023-10-15 22:16:16 +0800] [30033] [INFO] Booting worker with pid: 30033
+[2023-10-15 22:16:55 +0800] [30028] [INFO] Handling signal: int
+[2023-10-15 14:16:55 +0000] [30033] [INFO] Worker exiting (pid: 30033)
+[2023-10-15 14:16:55 +0000] [30032] [INFO] Worker exiting (pid: 30032)
+[2023-10-15 14:16:55 +0000] [30031] [INFO] Worker exiting (pid: 30031)
+[2023-10-15 22:16:55 +0800] [30028] [INFO] Shutting down: Master
+[2023-10-15 22:16:57 +0800] [30152] [INFO] Starting gunicorn 21.2.0
+[2023-10-15 22:16:57 +0800] [30152] [INFO] Listening at: http://127.0.0.1:8080 (30152)
+[2023-10-15 22:16:57 +0800] [30152] [INFO] Using worker: gevent
+[2023-10-15 22:16:57 +0800] [30168] [INFO] Booting worker with pid: 30168
+[2023-10-15 22:16:57 +0800] [30169] [INFO] Booting worker with pid: 30169
+[2023-10-15 22:16:57 +0800] [30170] [INFO] Booting worker with pid: 30170
+[2023-10-15 22:26:10 +0800] [30152] [INFO] Handling signal: term
+[2023-10-15 22:26:10 +0800] [30622] [INFO] Starting gunicorn 21.2.0
+[2023-10-15 22:26:10 +0800] [30622] [ERROR] Connection in use: ('127.0.0.1', 8080)
+[2023-10-15 22:26:10 +0800] [30622] [ERROR] Retrying in 1 second.
+[2023-10-15 14:26:10 +0000] [30168] [INFO] Worker exiting (pid: 30168)
+[2023-10-15 14:26:10 +0000] [30169] [INFO] Worker exiting (pid: 30169)
+[2023-10-15 14:26:10 +0000] [30170] [INFO] Worker exiting (pid: 30170)
+[2023-10-15 22:26:11 +0800] [30152] [INFO] Shutting down: Master
+[2023-10-15 22:26:11 +0800] [30622] [INFO] Listening at: http://127.0.0.1:8080 (30622)
+[2023-10-15 22:26:11 +0800] [30622] [INFO] Using worker: gevent
+[2023-10-15 22:26:11 +0800] [30647] [INFO] Booting worker with pid: 30647
+[2023-10-15 22:26:11 +0800] [30648] [INFO] Booting worker with pid: 30648
+[2023-10-15 22:26:11 +0800] [30649] [INFO] Booting worker with pid: 30649
