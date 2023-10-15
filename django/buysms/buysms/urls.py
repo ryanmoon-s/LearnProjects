@@ -22,6 +22,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('sales/', include('sales.urls')),
     path('api/mgr/', include('mgr.urls')),
-    # test
-    path('student/', include('studentdemo.urls')),
 ]+ static("/", document_root="./z_dist")
