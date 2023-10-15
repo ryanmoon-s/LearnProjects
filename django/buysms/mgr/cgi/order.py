@@ -8,7 +8,6 @@ from mgr.cgi import handler
 import json
 
 def AddOrder(request):
-
     info  = request.params['data']
 
     # 从请求消息中 获取要添加订单的信息
@@ -18,11 +17,9 @@ def AddOrder(request):
     with transaction.atomic():
         new_order = Order.objects.create(name=info['name'] ,
                                          customer_id=info['customerid'])
-
         # 同一个order_id关联多个药品
-        batch_lst = [OrderMedicine(order_id=new_order.id, medicine_id=mid, amount=1)  
-                    for mid in info['medicineids']]
-
+        batch_lst = [OrderMedicine(order_id=new_order.id, medicine_id=mid['id'], amount=1)  
+                    for mid in info['medicinelist']]
         #  在多对多关系表中 添加了 多条关联记录
         OrderMedicine.objects.bulk_create(batch_lst)
 

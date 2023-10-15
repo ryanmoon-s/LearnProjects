@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6&@b=q09bz24uu-szz$vgpb27l^^@cyhqwjznr-5pbbbvbsrfq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # 公网Host要放在这才能访问
 ALLOWED_HOSTS = ['123.60.86.245', 'hecs-231447']
@@ -78,13 +78,24 @@ WSGI_APPLICATION = 'buysms.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
+DATABASES = {
+  'default': {
+      'ENGINE': 'django.db.backends.mysql',
+      'NAME': 'buysms',   # 数据库名
+      'USER': 'root',    # 数据库 用户名
+      'PASSWORD': 'Root_123',# 数据库 用户密码
+      'HOST': '127.0.0.1', # 数据库服务主机名
+      'PORT': '3306',      # 数据库服务端口
+      'CONN_MAX_AGE': 0
+  }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
