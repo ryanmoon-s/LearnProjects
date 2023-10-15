@@ -1,52 +1,11 @@
 from django.http import JsonResponse
-from django.db.models import F
 from django.db import IntegrityError, transaction
+from django.core.paginator import Paginator
 
-# 导入 Order 对象定义
-from  common.models import  Order, Medicine, OrderMedicine
-from  common.models import  Customer
+from common.models import  Customer, Order, Medicine, OrderMedicine
+from mgr.cgi import handler
 
 import json
-
-def dispatcher(request):
-    # 根据session判断用户是否是登录的管理员用户
-    if 'usertype' not in request.session:
-        return JsonResponse({
-            'ret': 302,
-            'msg': '未登录',
-            'redirect': '/mgr/sign.html'},
-            status=302)
-
-    if request.session['usertype'] != 'mgr':
-        return JsonResponse({
-            'ret': 302,
-            'msg': '用户非mgr类型',
-            'redirect': '/mgr/sign.html'},
-            status=302)
-
-
-    # 将请求参数统一放入request 的 params 属性中，方便后续处理
-
-    # GET请求 参数 在 request 对象的 GET属性中
-    if request.method == 'GET':
-        request.params = request.GET
-
-    # POST/PUT/DELETE 请求 参数 从 request 对象的 body 属性中获取
-    elif request.method in ['POST','PUT','DELETE']:
-        # 根据接口，POST/PUT/DELETE 请求的消息体都是 json格式
-        request.params = json.loads(request.body)
-
-    # 根据不同的action分派给不同的函数进行处理
-    action = request.params['action']
-    if action == 'list_order':
-        return ListOrder(request)
-    elif action == 'add_order':
-        return AddOrder(request)
-
-    # 订单 暂 不支持修改 和删除
-
-    else:
-        return JsonResponse({'ret': 1, 'msg': '不支持该类型http请求'})
 
 def AddOrder(request):
 
@@ -71,35 +30,66 @@ def AddOrder(request):
 
 def ListOrder(request):
     '''
-    [
-        {
-            id: 1, 
-            name: "华山医院订单001", 
-            create_date: "2018-12-26T14:10:15.419Z",
-            customer_name: "华山医院",
-            names: "青霉素"
-        },
-        {
-            id: 2, 
-            name: "华山医院订单002", 
-            create_date: "2018-12-27T14:10:37.208Z",
-            customer_name: "华山医院",
-            names: "青霉素 | 红霉素 "
-        }
-    ] 
+    {
+        "id": 2, 
+        "name": "华山医院订单002", 
+        "create_date": "2018-12-27T14:10:37.208Z", 
+        "customer_name": "华山医院",
+        "medicinelist":[
+            {"id":16,"amount":5,"name":"环丙沙星"},
+            {"id":15,"amount":5,"name":"克林霉素"}
+        ]
+    }
     '''
-    
+
     # objects.values()返回的是: [{}]
     # objects.all(), get(), filter() 返回的是class对象
+    
+    pagenum = request.params['pagenum']
+    pagesize = request.params['pagesize']
+    
+    order_list = Order.objects.all()
+    pgtr = Paginator(order_list, pagesize)
+    page = pgtr.get_page(pagenum)
+    
     res_lst = []
-    for order in Order.objects.all():
+    for order in page:
         customer = Customer.objects.get(id=order.customer_id)
-        names = ''
+        medicinelist = []
         for order_medicine in OrderMedicine.objects.filter(order_id=order.id):
             medicine = Medicine.objects.get(id=order_medicine.medicine_id)
-            if len(names) != 0:
-                names += ' | '
-            names += medicine.name
-        res_lst.append({'id':order.id, 'name':order.name, 'create_date':order.create_date, 'customer_name':customer.name, 'names':names})
+            medicinelist.append({"id":medicine.id, 'amount':order_medicine.amount, 'name':medicine.name})
+        res_lst.append({'id':order.id, 'name':order.name, 'create_date':order.create_date, 'customer_name':customer.name, 'medicinelist':medicinelist})
 
     return JsonResponse({'ret': 0, 'retlist': res_lst})
+
+def DeleteOrder(request):
+    oid = request.params['id']
+
+    try:
+        one = Order.objects.get(id=oid)
+        with transaction.atomic():
+            # 一定要先删除 OrderMedicine 里面的记录
+            OrderMedicine.objects.filter(order_id=oid).delete()
+            # 再删除订单记录
+            one.delete()
+        return JsonResponse({'ret': 0, 'id': oid})
+
+    except Order.DoesNotExist:
+        return JsonResponse({
+            'ret': 1,
+            'msg': f'id 为`{oid}`的订单不存在'
+        })
+
+    except:
+        err = traceback.format_exc()
+        return JsonResponse({'ret': 1, 'msg': err})
+
+Action2Handler = {
+    'list_order': ListOrder,
+    'add_order': AddOrder,
+    'delete_order': DeleteOrder
+}
+
+def Dispatcher(request):
+    return handler.DispatcherBase(request, Action2Handler)

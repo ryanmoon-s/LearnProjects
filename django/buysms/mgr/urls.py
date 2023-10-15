@@ -4,8 +4,8 @@ from mgr.cgi import customer, login, medicine, order
 
 urlpatterns = [
     path('customers', customer.Dispatcher),
-    path('medicines', medicine.dispatcher),
-    path('orders', order.dispatcher),
+    path('medicines', medicine.Dispatcher),
+    path('orders', order.Dispatcher),
     
     path('signin', login.Login),
     path('signout', login.Logout),

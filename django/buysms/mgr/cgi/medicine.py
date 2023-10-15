@@ -1,61 +1,34 @@
 from django.http import JsonResponse
-from  common.models import  Medicine
+from django.db.models import Q
+from django.core.paginator import Paginator
 import json
 
-def dispatcher(request):
-    # 根据session判断用户是否是登录的管理员用户
-    if 'usertype' not in request.session:
-        return JsonResponse({
-            'ret': 302,
-            'msg': '未登录',
-            'redirect': '/mgr/sign.html'},
-            status=302)
-
-    if request.session['usertype'] != 'mgr':
-        return JsonResponse({
-            'ret': 302,
-            'msg': '用户非mgr类型',
-            'redirect': '/mgr/sign.html'},
-            status=302)
-
-
-    # 将请求参数统一放入request 的 params 属性中，方便后续处理
-
-    # GET请求 参数 在 request 对象的 GET属性中
-    if request.method == 'GET':
-        request.params = request.GET
-
-    # POST/PUT/DELETE 请求 参数 从 request 对象的 body 属性中获取
-    elif request.method in ['POST','PUT','DELETE']:
-        # 根据接口，POST/PUT/DELETE 请求的消息体都是 json格式
-        request.params = json.loads(request.body)
-
-
-    # 根据不同的action分派给不同的函数进行处理
-    action = request.params['action']
-    if action == 'list_medicine':
-        return listmedicine(request)
-    elif action == 'add_medicine':
-        return addmedicine(request)
-    elif action == 'modify_medicine':
-        return modifymedicine(request)
-    elif action == 'del_medicine':
-        return deletemedicine(request)
-
-    else:
-        return JsonResponse({'ret': 1, 'msg': '不支持该类型http请求'})
-
-
+from  common.models import  Medicine
+from mgr.cgi import handler
 
 def listmedicine(request):
-    # 返回一个 QuerySet 对象 ，包含所有的表记录
-    qs = Medicine.objects.values()
+    # .order_by('-id') 表示按照 id字段的值 倒序排列
+    # 这样可以保证最新的记录显示在最前面
+    qs = Medicine.objects.values().order_by('-id')
+    
+    # 查看是否有 关键字 搜索 参数
+    keywords = request.params.get('keywords', None)
+    if keywords:
+        conditions = [Q(name__contains=one) for one in keywords.split(' ') if one]
+        query = Q()
+        for condition in conditions:
+            query &= condition
+        qs = qs.filter(query)
 
-    # 将 QuerySet 对象 转化为 list 类型
-    # 否则不能 被 转化为 JSON 字符串
-    retlist = list(qs)
+    pagenum = request.params['pagenum']
+    pagesize = request.params['pagesize']
+ 
+    paginator = Paginator(qs, pagesize)
+    page = paginator.page(pagenum)
+    
+    retlist = list(page)
 
-    return JsonResponse({'ret': 0, 'retlist': retlist})
+    return JsonResponse({'ret': 0, 'retlist': retlist, 'total':paginator.count})
 
 
 def addmedicine(request):
@@ -120,3 +93,14 @@ def deletemedicine(request):
     medicine.delete()
 
     return JsonResponse({'ret': 0})
+
+
+Action2Handler = {
+    'list_medicine': listmedicine,
+    'add_medicine': addmedicine,
+    'modify_medicine': modifymedicine,
+    'del_medicine': deletemedicine,
+}
+
+def Dispatcher(request):
+    return handler.DispatcherBase(request, Action2Handler)
