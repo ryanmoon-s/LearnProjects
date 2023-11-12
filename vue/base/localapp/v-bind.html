@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- v-bind 用变量填充属性 -->
+        <img v-bind:src="imgSrc" alt="">
+        <br>
+        <!-- title 鼠标悬停时展示 -->
+        <!-- 用三元表达式 -->
+        <img :src="imgSrc" :alt="imgTitle" :title="imgTitle" :class="isActive?'active':''" @click="toggleActive">
+        <br>
+        <!-- 用类名，active类名是否生效，由isActive决定 -->
+        <img :src="imgSrc" :alt="imgTitle" :title="imgTitle" :class="{active:isActive}" @click="toggleActive">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                imgSrc: "http://www.itheima.com/images/logo.png",
+                imgTitle: "看啥看",
+                isActive: false
+            },
+            methods: {
+                toggleActive:function() {
+                    this.isActive = !this.isActive
+                }
+            },
+        })
+    </script>
+    
+</body>
+</html>

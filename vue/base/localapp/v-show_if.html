@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-show 控制是否展示，控制dstyle.disply属性 -->
+        <!-- style="display: none;" -->
+        <img src="img/cat.webp" alt="" v-show="false">
+        <img src="img/cat.webp" alt="" v-show="age>18">
+
+        <button @click="imgClick"> 切换显示状态 </button>
+        <br>
+        <!-- <img src="img/cat.webp" alt="" v-show="isShow"> -->
+
+        <!-- v-if 控制是否展示，把html元素从DOM树中删掉，消耗比较大 -->
+        <img src="img/cat.webp" alt="" v-if="isShow">
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                isShow: true,
+                age: 10
+            },
+            methods: {
+                imgClick:function() {
+                    this.isShow = !this.isShow;
+                }
+            },
+        })
+    </script>
+    
+</body>
+</html>

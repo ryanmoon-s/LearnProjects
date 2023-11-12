@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <!-- title的作用都是：鼠标悬停显示 -->
+            <li v-for="(item, idx) in addr" :title="item">
+                地名{{idx+1}}：{{item}}
+            </li>
+            <br><br>
+            <button @click="addStu">添加学生</button>
+            <button @click="delStu">删除学生</button>
+            <li v-for="(item, idx) in stu" :title="item.name">
+                学生{{idx+1}}: 姓名-{{item.name}} 年龄-{{item.age}}
+            </li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                addr: ["四川", "湖南", "湖北", "广州", "新疆"],
+                stu: [
+                    {name: "小白", age: 22},
+                    {name: "小黑", age: 19},
+                    {name: "小轩", age: 32},
+                    {name: "小淡", age: 10},
+                ]
+            },
+            methods: {
+                addStu:function() {
+                    this.stu.push({name:"新增学生", age: 100});
+                },
+                delStu:function() {
+                    this.stu.shift();
+                },
+            },
+        })
+    </script>
+    
+</body>
+</html>

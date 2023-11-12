@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <style>
+        img {
+            height: auto;
+            width: 300px;
+        }
+    </style>
+
+<body>
+    <div id="app">
+        <div class="input-index">
+            <button @click="sub">-</button>
+            <span> {{index}} </span>
+            <button @click="add">+</button>
+            <br>
+
+            <img src="img/cat.webp" alt="" :src="imgArray[index]">
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                index: 0,
+                imgArray: [
+                    "img/cat.webp",
+                    "img/dog.webp",
+                    "img/rabbit.webp"
+                ]
+            },
+            methods: {
+                sub:function() {
+                    if (this.index <= 0) {
+                        alert("没有更多图片了")
+                        return
+                    }
+                    this.index--
+                },
+                add:function() {
+                    if (this.index >= this.imgArray.length - 1) {
+                        alert("没有更多图片了")
+                        return
+                    }
+                    this.index++
+                }
+            },
+        })
+    </script>
+    
+</body>
+</html>

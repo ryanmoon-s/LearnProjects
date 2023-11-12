@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="msg" @keyup.enter="addMsg" placeholder="请输入任务" autofocus="autofocus">
+        <button @click="addMsg">添加</button>
+        <button @click="clearMsg">清空</button>
+        <span> 数量：{{msgList.length}} </span>
+        <br>
+        <ul>
+            <li v-for="(item, idx) in msgList">
+                {{item}}
+                <button @click="delMsgIdx(idx)">删除</button>
+            </li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: "",
+                msgList: [],
+            },
+            methods: {
+                addMsg:function() {
+                    if (this.msg.length <= 0) {
+                        alert("empty msg");
+                        return;
+                    }
+                    this.msgList.push(this.msg);
+                    this.msg = "";
+                },
+                delMsgIdx:function(idx) {
+                    this.msgList.splice(idx, 1);
+                },
+                clearMsg:function() {
+                    this.msgList = [];
+                }
+            },
+        })
+    </script>
+
+</body>
+</html>

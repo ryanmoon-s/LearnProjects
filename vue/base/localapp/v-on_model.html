@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 为元素绑定事件 -->
+        <input type="button" value="点击" v-on:click="click">
+        <input type="button" value="点击简写" @click="click">
+        <input type="button" value="双击" @dblclick="dblclick">
+        <h2 @click="changeFood"> {{food}} </h2>
+        
+        <!-- 按键触发，回车 -->
+        <!-- v-model 双向绑定（表单元素），两边都更改使用message -->
+        <input type="text" v-model="message" @keyup.enter="keyfunc">
+        <button @click="append"> append->message </button>
+        <h2> {{message}} </h2>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                food: "西红柿鸡蛋",
+                cnt: 1,
+                message: ""
+            },
+            methods: {
+                click:function() {
+                    alert("click");
+                },
+                dblclick:function() {
+                    alert("dblclick");
+                },
+                changeFood:function() {
+                    this.food += "好好吃";
+                },
+                keyfunc:function() {
+                    alert(this.message);
+                },
+                append:function() {
+                    this.message += "T";
+                }
+            },
+        })
+    </script>
+    
+</body>
+</html>

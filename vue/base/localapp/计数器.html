@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <style>
+        img {
+            height: 300px;
+            width: auto;
+        }
+    </style>
+
+<body>
+    <div id="app">
+        <div class="input-num">
+            <button @click="sub">-</button>
+            <span> {{num}} </span>
+            <button @click="add">+</button>
+            <br>
+
+            <img src="img/cat.webp" alt="" v-show="num>=5">
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                num: 0
+            },
+            methods: {
+                sub:function() {
+                    if (this.num <= 0) {
+                        alert("不能小于0")
+                        return
+                    }
+                    this.num--
+                },
+                add:function() {
+                    if (this.num >= 10) {
+                        alert("不能大于10")
+                        return
+                    }
+                    this.num++
+                }
+            },
+        })
+    </script>
+    
+</body>
+</html>

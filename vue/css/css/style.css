@@ -1,0 +1,85 @@
+/* 
+选择器：
+ h1 : 标签选择
+ .  : 类选择
+ #  : id选择
+
+颜色：
+1、关键词: black
+2、rgb、rgba
+3、#十六进制
+4、hsl(0, 100%, 50%) hsla
+    - 色相      0% - 360%
+    - 饱合度    0%灰色 - 100%全彩
+    - 亮度      0%黑色 - 100%白色
+    透明度
+
+字体：font-family(找不到就往后找)
+sans-serif 无衬线
+serif 有衬线
+monospace 等宽
+
+盒子模型：
+margin 外边距（两个盒子靠在一起时，取最大的外边距，即：外边距只有一份 外边距合并）
+    margin: 5px 10px 5px 10px；（上右下左，顺时针）
+    margin: 5px 10px;（上下 左右）
+    margin: 5px 10px 5px;（上 下 左右）
+border 边框
+padding 内边距
+text(width hight)
+*/
+body {
+    background-color: #f4f4f4;
+    color: #555555;
+
+    /* font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: normal; */
+    font: normal 16px Arial, Helvetica, sans-serif
+}
+.box1 {
+    background-color:bisque;
+    color:cadetblue;
+
+    border: 5px blue solid;
+
+    border-right: 5px red solid;
+    border-left: 5px red solid;
+    border-top: dashed;
+    border-bottom: dashed;
+
+    border-bottom-width: 5px;
+    border-bottom-style: dashed;
+
+    padding: 10px 10px;
+    
+}
+.box1 h1 {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 800;
+    font-style: italic;
+    /* 下划线 */
+    text-decoration: underline;
+    /* 大写 */
+    text-transform: uppercase;
+    /* 字间距 */
+    letter-spacing: 1em;
+    /* 词间距 */
+    word-spacing: 2em;
+    /* 行高 */
+    line-height: 1em;
+}
+.container {
+    width: 80%;
+    margin: auto;
+}
+.box2 {
+    border: 5px dotted #cccccc;
+    border-radius: 15px;
+    padding: 10px;
+    /* 左右不动 */
+    margin: 10px 0;
+}
+.list li {
+    list-style-image: url("../img/check.jpeg");
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- https://autumnfish.cn/api/joke/list?num=4 -->
+    <!-- https://autumnfish.cn/api/user/reg -->
+    <div id="app">
+        <input type="text" v-model="num" placeholder="输入数字">
+        <input type="button" value="获取笑话" @click="getJokeList">
+        <br>
+        <ul>
+            <li v-for="(item, idx) in msgList">
+                {{idx+1}}: {{item}} 
+            </li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                num: 1,
+                msgList: []
+            },
+            methods: {
+                getJokeList:function() {
+                    if (isNaN(parseFloat(this.num)) || !isFinite(this.num)) {
+                        alert("请输入数字");
+                        return;
+                    }
+                    if (this.num <= 0 || this.num >= 10) {
+                        alert("只能是1-10的数字");
+                        return;
+                    }
+                    contex = this; // 保存this
+
+                    var url = "https://autumnfish.cn/api/joke/list";
+                    url += "?num=" + String(this.num);
+                    axios.get(url).then(function(rsp) {
+                        contex.msgList = rsp.data.data;
+                        console.log(rsp)
+                    }).then(function(err) {
+                        console.log(err);
+                    })
+                }
+            },
+        })
+    </script>
+    
+</body>
+</html>
