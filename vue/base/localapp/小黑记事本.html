@@ -6,6 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        .clear-float {
+            clear: both;
+        }
+        #app {
+            /* 包裹满文字 */
+            width: max-content;
+            margin: 200px auto;
+        }
+        #app input {
+            width: 300px;
+            height: 20px;
+        }
+
+        #app ul {
+            padding-left: 0;
+            margin: 0;
+        }
+        #app li {
+            list-style: none;
+            margin: 3px 2px;
+        }
+        #app li:nth-child(even) {
+            background-color: #e0d7d7;
+            /* color: white; */
+        }
+        #app li:hover {
+            background-color:violet;
+            color: white;
+        }
+        
+        #app button {
+            margin: 0 5px;
+        }
+        #app button:hover {
+            background-color:aquamarine;
+        }
+        #app button:active {
+            background-color:aqua;
+        }
+
+        #list {
+            border: 1px gray solid;
+            margin-top: 10px;
+            position: relative;
+        }
+        #list span {
+            float: left;
+        }
+        #list button {
+            float: right;
+            font-size: 12px;
+            background-color: white;
+            border: cornflowerblue 1px solid;
+        }
+        #list button:hover {
+            background-color:aquamarine;
+        }
+        #list button:active {
+            background-color:aqua;
+        }
     </style>
 </head>
 <body>
@@ -15,12 +75,17 @@
         <button @click="clearMsg">清空</button>
         <span> 数量：{{msgList.length}} </span>
         <br>
-        <ul>
-            <li v-for="(item, idx) in msgList">
-                {{item}}
-                <button @click="delMsgIdx(idx)">删除</button>
-            </li>
-        </ul>
+
+        <div id="list" v-show="msgList.length>0">
+            <ul>
+                <li v-for="(item, idx) in msgList">
+                    <span> {{idx+1}} </span>
+                    <span style="position:absolute; left: 25px;"> {{item}} </span>
+                    <button @click="delMsgIdx(idx)">删除</button>
+                    <div class="clear-float"></div>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -29,12 +94,12 @@
             el: '#app',
             data: {
                 msg: "",
-                msgList: [],
+                msgList: ["AA", "BB", "CC", "DD"],
             },
             methods: {
                 addMsg:function() {
                     if (this.msg.length <= 0) {
-                        alert("empty msg");
+                        alert("请输入任务");
                         return;
                     }
                     this.msgList.push(this.msg);

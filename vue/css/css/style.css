@@ -79,7 +79,114 @@ body {
     padding: 10px;
     /* 左右不动 */
     margin: 10px 0;
+
+    /* 相对布局 */
+    position: relative;
+    top: 30px;
+    left: 30px;
 }
+.box2 h1 {
+    text-align: center;
+}
+
+button {
+    background-color: #444444;
+    color: #ffffff;
+    padding: 10px 15px;
+}
+button:hover {
+    color: red;
+}
+button:active {
+    background-color: white;
+    color: #444444;
+}
+
+a {
+    /* 不要下划线 */
+    text-decoration: none;
+    color: #555555;
+}
+a:hover {
+    color: cyan;
+}
+/* 访问过，以url去重 */
+a:visited {
+    color: red;
+}
+
 .list li {
+    /* 方的 */
+    list-style: square;
+    /* 空心的 */
+    list-style: circle;
+    /* 用图片 */
     list-style-image: url("../img/check.jpeg");
+}
+
+.block {
+    /* 向左浮动 */
+    float: left;
+    /* 要加上宽度才会浮动过来 */
+    width: 33.3%;
+    /* 加了边框，就放不下3个了 */
+    border: 1px #555555 solid;
+    /* ：有边框的box，边框会被加入到width里面 */
+    box-sizing: border-box;
+}
+
+/* 浮动完块完成后，都要加一个clear的样式 */
+.clearfix {
+    clear: both;
+}
+
+#main-block {
+    float: left;
+    width: 70%;
+}
+#side-bar {
+    float: right;
+    width: 30%;
+    border: 1px #444444 solid;
+    /* 也需要加它 */
+    box-sizing: border-box;
+}
+
+.list2 li {
+    list-style: circle;
+}
+.list2 li:nth-child(even) {
+    background-color: gray;
+    /* color: white; */
+}
+.list2 li:first-child {
+    background-color: red;
+}
+/* 从1开始 */
+.list2 li:nth-child(3) {
+    background-color: aqua;
+}
+
+.position-box {
+    width: 500px;
+    height: 500px;
+    border: #444444 solid 1px;
+    position: relative;
+}
+.position-box h1 {
+    /* 父窗口有relative，根据父窗口绝对偏移 */
+    /* 没有上下文relative时，参考页面做绝对偏移 */
+    position: absolute;
+    top: 100px;
+}
+.position-box h2 {
+    position: absolute;
+    left: 30px;
+}
+
+#fixed-button {
+    /* 固定在右下角 */
+    position: fixed;
+    right: 0;
+    bottom: 0;
 }

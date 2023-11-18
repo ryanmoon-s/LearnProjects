@@ -9,3 +9,5 @@ build/*
 __pycache__
 z_dist
 z_dist/
+node_modules
+*.json
