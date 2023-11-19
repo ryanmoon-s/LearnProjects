@@ -1,24 +1,27 @@
 import Vue from 'vue'
+// export default 导出的对象App
 import App from './App.vue'
 
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-Vue.use(ElementUI)
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
+Vue.use(ElementUI);
 
-import axios from 'axios'
-import moment  from 'moment'
-
-
-Vue.filter('moment', function (value, formatString) {
-  formatString = formatString || 'YYYY-MM-DD HH:mm:ss';
-  return moment(value).format("YYYY-MM-DD"); // value可以是普通日期 20170723
-});
-
+import axios from 'axios';
 Vue.prototype.$axios = axios
 
+// import moment  from 'moment'
 
 new Vue({
   el: '#app',
-  render: h => h(App)
+  /*
+  render是一个渲染函数
+  createElement是一个创建节点的函数
+  App就是一个html根文件
+
+  render: function(createElement) {
+    return createElement(App)
+  }
+  */
+  render: h => h(App),
 })
